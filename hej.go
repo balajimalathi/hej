@@ -52,8 +52,10 @@ var fallbackTable = []Fallback{
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: clihelp \"your query\"")
+		fmt.Println("Usage: hej \"your query\"")
+		fmt.Println("Note:")
 		fmt.Println("Set OPENROUTER_API_KEY env var to enable online mode.")
+		fmt.Println("Set OPENROUTER_MODEL env var to select the model. Defaults to `gpt-4o-mini`.")
 		return
 	}
 
@@ -110,8 +112,8 @@ Never add extra commentary or examples.`
 
 	req.Header.Set("Authorization", "Bearer "+apiKey)
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("HTTP-Referer", "https://local.clihelp")
-	req.Header.Set("X-Title", "clihelp")
+	req.Header.Set("HTTP-Referer", "https://local.hej")
+	req.Header.Set("X-Title", "hej")
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
