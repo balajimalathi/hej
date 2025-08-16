@@ -23,9 +23,9 @@ jobs:
       - name: Build binaries
         run: |
           mkdir -p dist
-          BIN_NAME="clihelp-${{ matrix.goos }}-${{ matrix.goarch }}-nightly"
+          BIN_NAME="hej-${{ matrix.goos }}-${{ matrix.goarch }}-nightly"
           GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
-            go build -ldflags="-s -w" -o dist/$BIN_NAME clihelp.go
+            go build -ldflags="-s -w" -o dist/$BIN_NAME hej.go
 
       - name: Publish nightly release
         run: |
