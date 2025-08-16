@@ -7,11 +7,11 @@
 
 ## ✨ Features
 
-* 🔹 No dependencies (single binary, no Python/Node required).
-* 🔹 Cross-platform (Linux, macOS, Windows).
-* 🔹 Works in **offline mode** (basic commands help).
-* 🔹 Works in **online mode** with AI backends (via OpenRouter API).
-* 🔹 Plug-and-play: `curl → chmod → run`.
+* No dependencies (single binary, no Python/Node required).
+* Cross-platform (Linux, macOS, Windows).
+* Works in **offline mode** (basic commands help).
+* Works in **online mode** with AI backends (via OpenRouter API).
+* Plug-and-play: `curl → chmod → run`.
 
 ---
 
