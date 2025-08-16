@@ -1,0 +1,38 @@
+name: Nightly Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        goos: [linux, windows, darwin]
+        goarch: [amd64, arm64]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Build binaries
+        run: |
+          mkdir -p dist
+          BIN_NAME="clihelp-${{ matrix.goos }}-${{ matrix.goarch }}-nightly"
+          GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
+            go build -ldflags="-s -w" -o dist/$BIN_NAME clihelp.go
+
+      - name: Publish nightly release
+        run: |
+          gh release create nightly dist/* \
+            --title "Nightly Build (main)" \
+            --notes "Automated nightly build from main branch." \
+            --prerelease \
+            --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}
