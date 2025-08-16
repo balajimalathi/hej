@@ -52,7 +52,7 @@ jobs:
 
       - name: Publish nightly release
         run: |
-          gh release create "$TAG" dist/** \
+          gh release create "$TAG" dist/* \
             --title "$TITLE" \
             --notes "Automated nightly build from main branch ($TAG)." \
             --prerelease
