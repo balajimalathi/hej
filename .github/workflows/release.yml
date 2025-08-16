@@ -35,6 +35,6 @@ jobs:
         with:
           files: dist/*
           tag_name: ${{ github.ref_name }}
-          release_name: ${{ github.ref_name }}
           draft: false
           prerelease: false
+          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
