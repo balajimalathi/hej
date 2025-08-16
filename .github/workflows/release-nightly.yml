@@ -32,7 +32,6 @@ jobs:
           gh release create nightly dist/* \
             --title "Nightly Build (main)" \
             --notes "Automated nightly build from main branch." \
-            --prerelease \
-            --clobber
+            --prerelease
         env:
           GH_TOKEN: ${{ github.token }}
