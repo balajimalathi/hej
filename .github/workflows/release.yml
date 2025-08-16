@@ -47,18 +47,18 @@ jobs:
           mkdir flat-dist
           find dist -type f -exec mv {} flat-dist/ \;
 
-          # Rename Windows binaries to have .exe extension
-          for f in flat-dist/*-windows-*; do
-            if [ -f "$f" ] && [[ "$f" != *.exe ]]; then
-              mv "$f" "$f.exe"
-            fi
-          done
-
           # Add version suffix to all binaries
           VERSION="${GITHUB_REF_NAME}"
           for f in flat-dist/*; do
             base=$(basename "$f")
             mv "$f" "flat-dist/${base}-${VERSION}"
+          done
+
+          # Rename Windows binaries to have .exe extension
+          for f in flat-dist/*-windows-*; do
+            if [ -f "$f" ] && [[ "$f" != *.exe ]]; then
+              mv "$f" "$f.exe"
+            fi
           done
 
           ls -lh flat-dist
