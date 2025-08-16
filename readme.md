@@ -17,7 +17,7 @@
 
 ## 📦 Installation
 
-### 🛠 Local Development Setup
+### 💻 Local Development Setup
 
 If you want to modify `hej` and test it locally:
 
@@ -51,7 +51,7 @@ go build -o hej.exe .
 
 ---
 
-### Server (Ubuntu/Debian)
+### 🗄️ Server (Ubuntu/Debian)
 
 ```bash
 # Download nightly build for Linux ARM64/AMD64
@@ -72,6 +72,7 @@ For **online mode** (AI suggestions), set your OpenRouter API key:
 
 ```bash
 export OPENROUTER_API_KEY="your_api_key_here"
+export OPENROUTER_MODEL="gpt-4o-mini"
 ```
 
 To persist across sessions, add it to `~/.bashrc` or `~/.zshrc`.
