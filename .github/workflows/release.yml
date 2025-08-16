@@ -31,10 +31,9 @@ jobs:
             go build -ldflags="-s -w" -o dist/hej-${{ matrix.goos }}-${{ matrix.goarch }} hej.go
 
       - name: Upload Release
-        uses: softprops/action-gh-release@v2
+        uses: ncipollo/release-action@v1
         with:
-          files: dist/*
-          tag_name: ${{ github.ref_name }}
-          draft: false
-          prerelease: false
-          token: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          artifacts: "dist/*"
+          tag: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
