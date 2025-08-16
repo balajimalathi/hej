@@ -47,6 +47,14 @@ jobs:
         run: |
           mkdir flat-dist
           find dist -type f -exec mv {} flat-dist/ \;
+
+          # Rename Windows binaries to have .exe extension
+          for f in flat-dist/*-windows-*; do
+            if [ -f "$f" ] && [[ "$f" != *.exe ]]; then
+              mv "$f" "$f.exe"
+            fi
+          done
+
           ls -lh flat-dist
 
       - name: Set nightly tag
