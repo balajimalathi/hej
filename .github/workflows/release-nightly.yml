@@ -43,6 +43,12 @@ jobs:
         with:
           path: dist
 
+      - name: Flatten dist directory
+        run: |
+          mkdir flat-dist
+          find dist -type f -exec mv {} flat-dist/ \;
+          ls -lh flat-dist
+
       - name: Set nightly tag
         id: vars
         run: |
@@ -52,7 +58,7 @@ jobs:
 
       - name: Publish nightly release
         run: |
-          gh release create "$TAG" dist/* \
+          gh release create "$TAG" flat-dist/* \
             --title "$TITLE" \
             --notes "Automated nightly build from main branch ($TAG)." \
             --prerelease
