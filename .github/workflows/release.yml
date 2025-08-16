@@ -27,11 +27,31 @@ jobs:
       - name: Build
         run: |
           mkdir -p dist
+          BIN_NAME="hej-${{ matrix.goos }}-${{ matrix.goarch }}"
+          if [[ "${GITHUB_REF_TYPE}" == "branch" ]]; then
+            BIN_NAME="${BIN_NAME}-nightly"
+          fi
           GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} \
-            go build -ldflags="-s -w" -o dist/hej-${{ matrix.goos }}-${{ matrix.goarch }} hej.go
+            go build -ldflags="-s -w" -o dist/$BIN_NAME hej.go
 
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: hej-main-${{ matrix.goos }}-${{ matrix.goarch }}
-          path: dist/hej-${{ matrix.goos }}-${{ matrix.goarch }}
+      - name: Upload Release (Nightly or Tag)
+        run: |
+          if [[ "${GITHUB_REF_TYPE}" == "branch" ]]; then
+            TAG="nightly"
+            TITLE="Nightly Build (main)"
+            NOTES="Automated nightly build from main branch."
+          else
+            TAG="${GITHUB_REF_NAME}"
+            TITLE="Release ${GITHUB_REF_NAME}"
+            NOTES="Automated release for ${GITHUB_REF_NAME}."
+          fi
+
+          # Create or update the release
+          gh release create "$TAG" dist/* \
+            --title "$TITLE" \
+            --notes "$NOTES" \
+            --latest \
+            --prerelease \
+            --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
